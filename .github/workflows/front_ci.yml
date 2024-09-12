@@ -36,11 +36,16 @@ jobs:
       - name: Run Tests and Generate Code Coverage Report
         run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadless --code-coverage
 
+      - name: List coverage directory
+        run: ls -R ./front/coverage/
+
       - name: Upload Code Coverage Report
         uses: actions/upload-artifact@v4
         with:
           name: front-coverage-report
           path: front/coverage
+
+      
 
 
   sonarcloud:

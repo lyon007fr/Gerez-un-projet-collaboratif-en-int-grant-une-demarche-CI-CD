@@ -57,7 +57,9 @@ jobs:
 
       - name: Print contents of lcov.info
         run: cat front/coverage/bobapp/lcov.info
-
+        
+      - name: List coverage directory before SonarCloud analysis
+        run: ls -R front/coverage/bobapp
 
   sonarcloud:
     name: SonarCloud

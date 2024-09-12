@@ -49,6 +49,14 @@ jobs:
           path: front/coverage/bobapp/lcov.info
 
       
+      - name: List lcov.info before SonarCloud analysis
+        run: ls -l front/coverage/bobapp/lcov.info
+
+      - name: Print absolute path to lcov.info
+        run: readlink -f front/coverage/bobapp/lcov.info
+
+      - name: Print contents of lcov.info
+        run: cat front/coverage/bobapp/lcov.info
 
 
   sonarcloud:

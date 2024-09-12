@@ -1,9 +1,15 @@
 name: Front_CI
 on:
   push:
+    paths:
+      - 'front/**'
+      - '.github/workflows/**'
     branches:
       - main
   pull_request:
+    paths:
+      - 'front/**'
+      - '.github/workflows/**'
     types: [opened, synchronize, reopened]
     
 jobs:
@@ -46,22 +52,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: front-coverage-report
-          path: front/coverage/bobapp/lcov.info
-          
-      - name: List uploaded artifacts
-        run: ls -R front/coverage/bobapp
-      
-      - name: List lcov.info before SonarCloud analysis
-        run: ls -l front/coverage/bobapp/lcov.info
-
-      - name: Print absolute path to lcov.info
-        run: readlink -f front/coverage/bobapp/lcov.info
-
-      - name: Print contents of lcov.info
-        run: cat front/coverage/bobapp/lcov.info
-        
-      - name: List coverage directory before SonarCloud analysis
-        run: ls -R front/coverage/bobapp
+          path: front/coverage
 
   sonarcloud:
     name: SonarCloud

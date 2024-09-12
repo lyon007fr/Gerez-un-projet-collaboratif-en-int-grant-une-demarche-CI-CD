@@ -39,6 +39,9 @@ jobs:
       - name: List coverage directory
         run: ls -R ./coverage/
 
+      - name: List lcov.info file
+        run: ls -R ./coverage/bobapp/lcov.info
+
       - name: Upload Code Coverage Report
         uses: actions/upload-artifact@v4
         with:

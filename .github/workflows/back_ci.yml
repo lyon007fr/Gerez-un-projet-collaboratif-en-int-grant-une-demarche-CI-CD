@@ -55,4 +55,4 @@ jobs:
             context: ./back
             file: ./back/Dockerfile
             push: true
-            tags: ${{ vars.DOCKERHUB_USERNAME }}/back_bobapp:latest
+            tags: ${{ secrets.DOCKERHUB_USERNAME }}backbobapp:latest

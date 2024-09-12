@@ -46,7 +46,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: front-coverage-report
-          path: ./coverage/bobapp/lcov.info
+          path: front/coverage/bobapp/lcov.info
 
       
 

@@ -1,4 +1,5 @@
-name: Front_CI
+name: FrontEnd CI CD
+
 on:
   push:
     paths:
@@ -10,8 +11,11 @@ on:
     paths:
       - 'front/**'
       - '.github/workflows/**'
-    types: [opened, synchronize, reopened]
-    
+    types:
+      - opened
+      - synchronize
+      - reopened
+
 jobs:
   frontend_build_and_test_analyze:
     runs-on: ubuntu-latest
@@ -28,10 +32,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Use Node.js ${{matrix.node-version}}
+      - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
-          node-version: ${{matrix.node-version}}
+          node-version: ${{ matrix.node-version }}
+
+      - name: Cache Node Modules
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
       - name: Install Dependencies
         run: npm ci
@@ -49,6 +61,7 @@ jobs:
           path: front/coverage/
           overwrite: true
           if-no-files-found: error
+
 
   sonarcloud:
     name: SonarCloud

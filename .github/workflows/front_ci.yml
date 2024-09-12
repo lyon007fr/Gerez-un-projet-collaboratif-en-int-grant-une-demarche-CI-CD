@@ -47,7 +47,9 @@ jobs:
         with:
           name: front-coverage-report
           path: front/coverage/bobapp/lcov.info
-
+          
+      - name: List uploaded artifacts
+        run: ls -R front/coverage/bobapp
       
       - name: List lcov.info before SonarCloud analysis
         run: ls -l front/coverage/bobapp/lcov.info

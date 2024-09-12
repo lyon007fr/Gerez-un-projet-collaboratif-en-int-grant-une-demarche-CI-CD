@@ -55,4 +55,4 @@ jobs:
             context: ./back
             file: ./back/Dockerfile
             push: true
-            tags: ${{ vars.DOCKERHUB_USERNAME }}/Github_workflow:latest
+            tags: ${{ vars.DOCKERHUB_USERNAME }}/back_end:latest

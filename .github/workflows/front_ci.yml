@@ -51,11 +51,14 @@ jobs:
       - name: Build Angular Project
         run: npm run build
 
+      - name: List files in project directory after build
+        run: ls -R front/
+
       - name: Run Tests and Generate Code Coverage Report
         run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadless --code-coverage
 
-      - name: List files in project directory
-        run: ls -R front/
+      - name: List files in coverage directory
+        run: ls -R front/coverage || echo "Coverage directory does not exist"
 
       - name: Upload Code Coverage Report
         uses: actions/upload-artifact@v4

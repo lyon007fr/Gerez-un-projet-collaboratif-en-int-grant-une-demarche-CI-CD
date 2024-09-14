@@ -20,17 +20,17 @@ jobs:
   frontend_build_and_test_analyze:
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: front
-
     strategy:
       matrix:
         node-version: [16.x]
 
     steps:
-      - name: Checkout
+      - name: Checkout Code
         uses: actions/checkout@v4
+
+      - name: List files after checkout
+        run: ls -R
+        # Ajouté pour vérifier que le répertoire front existe après le checkout
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
@@ -47,15 +47,20 @@ jobs:
 
       - name: Install Dependencies
         run: npm ci
+        working-directory: front
+        # Spécifier le répertoire front pour installer les dépendances du front
 
       - name: Build Angular Project
         run: npm run build
+        working-directory: front
+        # Assurez-vous de travailler dans le répertoire front
 
       - name: List files in project directory after build
         run: ls -R front/
 
       - name: Run Tests and Generate Code Coverage Report
         run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadless --code-coverage
+        working-directory: front
 
       - name: List files in coverage directory
         run: ls -R front/coverage || echo "Coverage directory does not exist"
@@ -73,9 +78,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: frontend_build_and_test_analyze
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
         with:
@@ -88,7 +95,7 @@ jobs:
     needs: frontend_build_and_test_analyze
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout Code
         uses: actions/checkout@v4
 
       - name: Login to Docker Hub
@@ -100,10 +107,14 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Build and push
+      - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
           context: ./front
           file: ./front/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/bobapp_front:latest
+
+      - name: List files in Docker context
+        run: ls -R ./front
+        # Vérifie que le Dockerfile et les autres fichiers nécessaires existent

@@ -54,6 +54,10 @@ jobs:
       - name: Run Tests and Generate Code Coverage Report
         run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadless --code-coverage
 
+    #lister le repertoire coverage
+      - name: List files in coverage directory
+        run: ls -R front/coverage
+        
       - name: Upload Code Coverage Report
         uses: actions/upload-artifact@v4
         with:
@@ -61,6 +65,10 @@ jobs:
           path: front/coverage/
           overwrite: true
           if-no-files-found: error
+
+          #lister le repertoire coverage
+      - name: List files in coverage directory
+        run: ls -R front/coverage
 
 
   sonarcloud:
@@ -72,7 +80,7 @@ jobs:
         with:
           fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
+        uses: SonarSource/sonarcloud-github-action@master@v1
         with:
          projectBaseDir: front
         env:

@@ -80,7 +80,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_FRONT }}
 
   docker_build_and_push:
-    needs: frontend_build_and_test_analyze
+    needs: frontend_build_test_analyze
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code

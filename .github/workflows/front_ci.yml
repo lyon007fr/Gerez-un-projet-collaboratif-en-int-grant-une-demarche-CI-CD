@@ -1,20 +1,11 @@
-name: FrontEnd CI CD
+name: Front-end CI/CD
 
 on:
   push:
-    paths:
-      - 'front/**'
-      - '.github/workflows/**'
     branches:
       - main
   pull_request:
-    paths:
-      - 'front/**'
-      - '.github/workflows/**'
-    types:
-      - opened
-      - synchronize
-      - reopened
+    types: [opened, synchronize, reopened]
 
 jobs:
   frontend_build_test_analyze:
@@ -86,6 +77,4 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/bobapp_front:latest
 
-      - name: List files in Docker context
-        run: ls -R ./front
-        # Vérifie que le Dockerfile et les autres fichiers nécessaires existent
+

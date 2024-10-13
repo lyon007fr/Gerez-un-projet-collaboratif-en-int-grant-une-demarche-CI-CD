@@ -48,7 +48,7 @@ jobs:
           zip -r front.zip .  # Create zip file with the content of front directory
 
       - name: List files in front directory
-         run: ls -la front  # Vérifie que front.zip existe
+        run: ls -la front  # Vérifie que front.zip existe
 
       - name: Upload the ZIP archive for Docker build
         uses: actions/upload-artifact@v3

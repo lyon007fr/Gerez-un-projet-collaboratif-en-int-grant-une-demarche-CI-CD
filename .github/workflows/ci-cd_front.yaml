@@ -43,11 +43,16 @@ jobs:
       - name: Build Angular Project
         run: npm run build
 
-      - name: Upload code for Docker build
+      - name: Create a ZIP archive of the back directory
+        run: |
+          zip -r front.zip .  # Crée un fichier ZIP de tout le contenu du dossier back
+
+      - name: Upload the ZIP archive for Docker build
         uses: actions/upload-artifact@v3
         with:
            name: source-code
-           path: ./  # Uploads all files needed for the Docker build
+           path: front.zip  # Uploads all files needed for the Docker build
+           
             
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master

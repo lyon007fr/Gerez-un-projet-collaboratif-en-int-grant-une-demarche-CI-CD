@@ -38,9 +38,17 @@ jobs:
             key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
             restore-keys: ${{ runner.os }}-m2
 
-
-        - name: Build and Test with Maven
-          run: mvn -B clean verify
+        - name: Compile the code
+          run: mvn compile
+          
+        - name: Run tests and generate Jacoco report
+          run: mvn verify
+          
+        - name: Package the code
+          run: mvn package
+        
+        #- name: Build and Test with Maven
+        #  run: mvn -B clean verify
           
         - name: Upload Jacoco Report
           uses: actions/upload-artifact@v4
@@ -53,17 +61,14 @@ jobs:
           env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
             SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=bobapp-ocr_Back 
+          run: org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=bobapp-ocr_Back 
   
 
     docker_build_and_push:
       needs: backend_build_analyze
       runs-on: ubuntu-latest
       steps:
-      
-        - name: checkout
-          uses: actions/checkout@v4
-          
+              
         - name: Login to Docker Hub
           uses: docker/login-action@v3
           with:

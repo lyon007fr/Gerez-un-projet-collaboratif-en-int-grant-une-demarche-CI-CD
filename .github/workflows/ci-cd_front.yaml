@@ -43,9 +43,9 @@ jobs:
       - name: Build Angular Project
         run: npm run build
 
-      - name: Create a ZIP archive of the back directory
+      - name: Create a ZIP archive of the front directory
         run: |
-          zip -r front.zip .  # Crée un fichier ZIP de tout le contenu du dossier back
+          zip -r front.zip .  # Create zip file with the content of front directory
 
       - name: Upload the ZIP archive for Docker build
         uses: actions/upload-artifact@v3

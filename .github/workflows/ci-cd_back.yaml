@@ -47,16 +47,15 @@ jobs:
         - name: Package the code
           run: mvn package
         
-        #- name: Build and Test with Maven
-        #  run: mvn -B clean verify
-          
+               
         - name: Upload Jacoco Report
           uses: actions/upload-artifact@v4
           with:
             name: jacoco-report
             path: back/target/site/jacoco
 
-        - name: Upload code for Docker build
+
+        - name: Upload code for Docker build 
           uses: actions/upload-artifact@v3
           with:
             name: source-code

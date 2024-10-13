@@ -47,11 +47,14 @@ jobs:
         run: |
           zip -r front.zip .  # Create zip file with the content of front directory
 
+      - name: List files in front directory
+         run: ls -la front  # Vérifie que front.zip existe
+
       - name: Upload the ZIP archive for Docker build
         uses: actions/upload-artifact@v3
         with:
            name: source-code
-           path: front.zip  # Uploads all files needed for the Docker build
+           path: front/front.zip  # Uploads all files needed for the Docker build
            
             
       - name: SonarCloud Scan

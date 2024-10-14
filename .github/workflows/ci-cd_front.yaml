@@ -31,9 +31,6 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Build Angular Project
-        run: npm run build
-
       - name: Run Tests and Generate Code Coverage Report
         run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadless --code-coverage
 
@@ -43,6 +40,9 @@ jobs:
           name: front-coverage-report
           path: front/coverage
 
+      - name: Build Angular Project
+        run: npm run build
+        
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         with:

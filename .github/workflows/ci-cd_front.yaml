@@ -78,3 +78,4 @@ jobs:
           file: ./front/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/bobapp_front:latest
+          no-cache: true

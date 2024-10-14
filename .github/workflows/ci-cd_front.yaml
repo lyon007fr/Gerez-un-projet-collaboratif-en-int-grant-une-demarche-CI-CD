@@ -41,17 +41,7 @@ jobs:
           path: front/coverage
           
       - name: Build Angular Project
-        run: npm run build
-
-   
-      - name: Upload code for Docker build 
-        uses: actions/upload-artifact@v3
-        with:
-          name: source-code
-          path: ./  
-    
-
-   
+        run: npm run build   
            
             
       - name: SonarCloud Scan
@@ -69,10 +59,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     
-      - name: Download source code artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: source-code  # This matches the name used in the previous job
+      - name: Checkout
+        uses: actions/checkout@v4
          
       - name: Login to Docker Hub
         uses: docker/login-action@v3
